@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Cart - ASTRA</title>
+  <link rel="stylesheet" href="css/cart.css" />
+</head>
+<body>
+  <header class="main-header">
+    <h1>Your Cart</h1>
+    <nav>
+      <a href="index.html">← Back to Shop</a>
+    </nav>
+  </header>
+
+  <main>
+    <div id="cart-container"></div>
+
+    <!-- Coupon Section -->
+    <div id="coupon-section">
+      <label for="coupon-code">Enter Coupon Code</label>
+      <input type="text" id="coupon-code" placeholder="Enter coupon code">
+      <button id="apply-coupon">Apply Coupon</button>
+      <div id="coupon-message"></div>
+    </div>
+
+    <!-- Subtotal and Discounted Price -->
+    <p><strong>Subtotal:</strong> ₹<span id="original-price">0</span></p>
+    <p id="discounted-price-container" style="display:none;">
+      <strong>Discounted Price:</strong> ₹<span id="discounted-price">0</span>
+    </p>
+    <p><strong>Total:</strong> ₹<span id="total">0</span></p>
+
+    <button id="proceedToPay">Proceed To Checkout</button>
+    <button onclick="clearCart()">Clear Cart</button>
+    <div class="loader" id="loader">Processing...</div>
+
+    <!-- Popup for User Details -->
+    <div id="user-details-popup" class="popup" style="display: none;">
+      <div class="popup-content">
+        <h2>Enter Your Details</h2>
+        <form id="user-details-form">
+          <label for="firstname">First Name:</label>
+          <input type="text" id="firstname" required>
+          <label for="lastname">Last Name:</label>
+          <input type="text" id="lastname" required>
+          <label for="email">Email:</label>
+          <input type="email" id="email" required>
+          <label for="phone">Phone:</label>
+          <input type="tel" id="phone" pattern="[0-9]{10}" required>
+          <button type="submit">Proceed to Pay</button>
+          <button type="button" onclick="closePopup()">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/cart.js"></script>
+</body>
+</html>
