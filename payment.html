@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment - ASTRA</title>
+  <link rel="stylesheet" href="css/payment.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+</head>
+<body>
+
+  <div class="payment-container">
+    <h1>Scan & Pay</h1>
+    <p>Please scan the QR code or use the UPI ID below to complete your payment.</p>
+
+    <div class="qr-box">
+      <!-- Dynamic QR Code Canvas -->
+      <canvas id="dynamic-qr" class="qr-img"></canvas>
+      <p class="upi-id">UPI ID: <strong>sarthakgaira2005@okicici</strong></p>
+    </div>
+
+    <!-- Display Total Amount Here -->
+    <p><strong>Total Amount (After Discount): ₹<span id="total-amount">0</span></strong></p>
+
+    <!-- Optional Button to open in UPI App -->
+    <a id="open-upi" href="#" target="_blank">
+      Pay via UPI
+    </a>
+  </div>
+
+  <button id="confirm-payment">I Have Paid</button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const finalTotal = localStorage.getItem("finalTotal");
+      const amount = finalTotal ? parseFloat(finalTotal).toFixed(2) : "0.00";
+
+      // Update UI with amount
+      document.getElementById("total-amount").textContent = amount;
+
+      // UPI Payment Details
+      const vpa = "sarthakgaira2005@okicici";
+      const name = "Sarthak Gaira";
+      const upiUrl = `upi://pay?pa=${vpa}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR`;
+
+      // Update the "Pay via UPI" link
+      document.getElementById("open-upi").href = upiUrl;
+
+      // Generate the QR code with amount
+      const qr = new QRious({
+        element: document.getElementById("dynamic-qr"),
+        value: upiUrl,
+        size: 220,
+      });
+    });
+
+    document.getElementById("confirm-payment").addEventListener("click", () => {
+      localStorage.removeItem("cart");
+      localStorage.removeItem("finalTotal");
+      window.location.href = "afterpayment.html";
+    });
+  </script>
+
+</body>
+</html>
