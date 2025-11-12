@@ -1,0 +1,292 @@
+<!-- ===================== index.html (Astra) ===================== -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Astra - Electronics Components Store</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/toast.css" />
+  <!-- Font Awesome CDN for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Chatbot widget styles (scoped) -->
+  <style>
+    :root{
+      --cb-primary: #4f46e5; /* Indigo-600 */
+      --cb-primary-700: #4338ca;
+      --cb-bg: #ffffff; --cb-text: #0f172a; --cb-subtle: #64748b; --cb-border: #e2e8f0;
+    }
+    .cb-launcher{position:fixed;bottom:20px;left:20px;z-index:9999;width:56px;height:56px;border-radius:9999px;background:var(--cb-primary);color:#fff;border:none;box-shadow:0 10px 25px rgba(0,0,0,.15);display:grid;place-items:center;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease,background .2s ease}
+    .cb-launcher:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(0,0,0,.2);background:var(--cb-primary-700)}
+    .cb-badge{position:absolute;inset:-6px auto auto 40px;background:#ef4444;color:#fff;font-size:11px;font-weight:700;padding:2px 6px;border-radius:999px;box-shadow:0 1px 0 rgba(0,0,0,.15);display:none}
+    .cb-window{position:fixed;bottom:88px;left:20px;width:360px;max-width:calc(100vw - 32px);height:520px;max-height:calc(100vh - 120px);background:var(--cb-bg);color:var(--cb-text);border:1px solid var(--cb-border);border-radius:18px;box-shadow:0 20px 60px rgba(2,6,23,.25);overflow:hidden;transform-origin:bottom left;transform:scale(.98) translateY(8px);opacity:0;visibility:hidden;transition:opacity .2s ease,transform .2s ease,visibility .2s;z-index:10000}
+    .cb-window.open{opacity:1;visibility:visible;transform:scale(1) translateY(0)}
+    .cb-header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:linear-gradient(180deg,#fff,#fafafa);border-bottom:1px solid var(--cb-border)}
+    .cb-title{font-weight:700;font-size:15px}
+    .cb-status{font-size:12px;color:var(--cb-subtle)}
+    .cb-header-actions{display:flex;gap:8px}
+    .cb-iconbtn{background:transparent;border:none;cursor:pointer;color:#334155;width:32px;height:32px;border-radius:8px;display:grid;place-items:center}
+    .cb-iconbtn:hover{background:#f1f5f9}
+    .cb-messages{height:calc(100% - 56px - 72px);overflow-y:auto;padding:12px;scroll-behavior:smooth;background:#fff}
+    .cb-msg{display:flex;gap:10px;margin:10px 0}
+    .cb-msg.bot{align-items:flex-start}
+    .cb-msg.user{flex-direction:row-reverse}
+    .cb-avatar{width:28px;height:28px;border-radius:999px;background:var(--cb-primary);color:#fff;display:grid;place-items:center;font-size:14px;font-weight:700}
+    .cb-bubble{max-width:78%;padding:10px 12px;border-radius:14px;line-height:1.35;font-size:14px;border:1px solid var(--cb-border);box-shadow:0 1px 0 rgba(0,0,0,.03)}
+    .cb-msg.bot .cb-bubble{background:#f8fafc}
+    .cb-msg.user .cb-bubble{background:#eef2ff;border-color:#e0e7ff}
+    .cb-typing{display:none;font-size:12px;color:var(--cb-subtle);margin:6px 6px 0}
+    .cb-composer{display:flex;gap:8px;align-items:center;padding:10px;border-top:1px solid var(--cb-border);background:#fff}
+    .cb-input{flex:1;border:1px solid var(--cb-border);border-radius:12px;padding:10px 12px;font-size:14px;outline:none}
+    .cb-input:focus{border-color:#c7d2fe;box-shadow:0 0 0 4px #eef2ff}
+    .cb-send{background:var(--cb-primary);color:#fff;border:none;border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer}
+    .cb-send:hover{background:var(--cb-primary-700)}
+    @media (prefers-color-scheme: dark){:root{--cb-bg:#0b1220;--cb-text:#e5e7eb;--cb-subtle:#94a3b8;--cb-border:#1f2937}.cb-messages{background:#0b1220}.cb-msg.bot .cb-bubble{background:#0f172a;border-color:#1f2937}.cb-msg.user .cb-bubble{background:#111827;border-color:#1f2937}.cb-header{background:linear-gradient(180deg,#0b1220,#0b1220)}.cb-iconbtn:hover{background:#0f172a}}
+  </style>
+</head>
+<body>
+
+  <header class="main-header">
+    <img src="images/astra_logo.jpeg" alt="ASTRA Logo" class="logo" />
+    <div class="header-actions">
+      <a href="cart.html" class="cart-icon mobile-only" aria-label="Cart">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count">0</span>
+      </a>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">☰</button>
+    </div>
+    <div class="nav-search-wrapper">
+      <nav id="nav-menu" class="nav-menu">
+        <ul class="nav-links">
+          <a href="cart.html" class="cart-icon desktop-only" aria-label="Cart">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+          </a>
+          </li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#products">Shop</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="search-wrapper">
+        <div class="search-bar">
+          <input type="text" id="search-input" placeholder="Search products..." />
+          <div id="product-suggestions" class="suggestions"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/background.webp') center/cover no-repeat;">
+    <div class="hero-text">
+      <h1>Welcome to <span>ASTRA</span></h1>
+      <p>Your one-stop store for all futuristic electronic components.</p>
+      <a href="#products" class="cta-button">Shop Now</a>
+    </div>
+  </section>
+
+  <section id="products" class="product-section">
+    <h2 class="section-title">Featured Components</h2>
+    <div class="product-grid" id="product-list"></div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+      <div class="footer-social">
+        <a href="https://x.com/astra_io_in" target="_blank" aria-label="Twitter">
+          <i class="fab fa-x-twitter"></i>
+        </a>
+        <a href="https://www.instagram.com/astra.io.in/" target="_blank" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+      <p>© 2025 ASTRA Electronics. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">Item added to cart!</div>
+
+  <!-- Floating Chatbot Launcher (bottom-left) -->
+  <button id="cb-launcher" class="cb-launcher" aria-label="Open chat">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
+    <span id="cb-badge" class="cb-badge">1</span>
+  </button>
+
+  <!-- Chat Window -->
+  <div id="cb-window" class="cb-window" role="dialog" aria-modal="true" aria-labelledby="cb-title" aria-hidden="true">
+    <header class="cb-header">
+      <div>
+        <div id="cb-title" class="cb-title">Chat with Astra</div>
+        <div id="cb-status" class="cb-status">We usually reply in a few minutes</div>
+      </div>
+      <div class="cb-header-actions">
+        <button id="cb-min" class="cb-iconbtn" aria-label="Minimize">&#8722;</button>
+        <button id="cb-close" class="cb-iconbtn" aria-label="Close">&#10005;</button>
+      </div>
+    </header>
+    <main id="cb-messages" class="cb-messages" aria-live="polite"></main>
+    <div id="cb-typing" class="cb-typing">Assistant is typing…</div>
+    <footer class="cb-composer">
+      <input id="cb-input" class="cb-input" type="text" placeholder="Ask about products, orders, or support…" autocomplete="off" />
+      <button id="cb-send" class="cb-send">Send</button>
+    </footer>
+  </div>
+
+  <script>
+    function showToast(message){const toast=document.getElementById("toast");toast.textContent=message;toast.classList.add("show");setTimeout(()=>{toast.classList.remove("show")},2000)}
+    document.getElementById("menu-toggle").addEventListener("click",function(){document.getElementById("nav-menu").classList.toggle("active")});
+  </script>
+
+  <!-- JS -->
+  <script src="js/products.js"></script>
+
+  <!-- Chatbot client -->
+  <script>
+    (function(){
+      const q = (sel) => document.querySelector(sel);
+      const win = q('#cb-window');
+      const launcher = q('#cb-launcher');
+      const badge = q('#cb-badge');
+      const messages = q('#cb-messages');
+      const typing = q('#cb-typing');
+      const input = q('#cb-input');
+      const sendBtn = q('#cb-send');
+      const closeBtn = q('#cb-close');
+      const minBtn = q('#cb-min');
+
+      const sessionKey = 'cb-session-id';
+      let sessionId = localStorage.getItem(sessionKey) || (window.crypto?.randomUUID?.() || String(Date.now()));
+      localStorage.setItem(sessionKey, sessionId);
+
+      function openWin(){ win.classList.add('open'); win.setAttribute('aria-hidden','false'); input.focus(); badge.style.display='none'; }
+      function closeWin(){ win.classList.remove('open'); win.setAttribute('aria-hidden','true'); }
+      function minimize(){ win.classList.remove('open'); win.setAttribute('aria-hidden','true'); }
+
+      launcher.addEventListener('click', ()=>{ win.classList.contains('open') ? minimize() : openWin(); });
+      closeBtn.addEventListener('click', closeWin);
+      minBtn.addEventListener('click', minimize);
+
+      function bubble(role, text){
+        const wrap = document.createElement('div');
+        wrap.className = `cb-msg ${role}`;
+        const avatar = document.createElement('div');
+        avatar.className = 'cb-avatar';
+        avatar.textContent = role === 'bot' ? 'AI' : 'You';
+        const bub = document.createElement('div');
+        bub.className = 'cb-bubble';
+        bub.textContent = text;
+        wrap.appendChild(avatar); wrap.appendChild(bub);
+        messages.appendChild(wrap);
+        messages.scrollTop = messages.scrollHeight;
+      }
+
+      function setTyping(v){ typing.style.display = v ? 'block' : 'none'; messages.scrollTop = messages.scrollHeight; }
+
+      async function send(){
+        const text = input.value.trim(); if(!text) return;
+        bubble('user', text); input.value = ''; setTyping(true);
+        try{
+          const r = await fetch('/api/chat', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sessionId, message: text, source: 'web' })
+          });
+          if(!r.ok) throw new Error('Network');
+          const data = await r.json();
+          bubble('bot', data.reply || 'Sorry, I didn\'t catch that.');
+        }catch(e){
+          console.error(e);
+          bubble('bot', 'Connection issue. Please try again.');
+        }finally{ setTyping(false); }
+      }
+
+      sendBtn.addEventListener('click', send);
+      input.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ send(); }});
+
+      if(!sessionStorage.getItem('cb-greeted')){
+        sessionStorage.setItem('cb-greeted','1');
+        badge.style.display = 'block';
+        setTimeout(()=>{ bubble('bot', 'Hi! 👋 I\'m Astra Assistant. Ask me about stock, specs, or your orders.'); }, 600);
+      }
+    })();
+  </script>
+</body>
+</html>
+
+
+<!-- ===================== server.js (Node/Express API) =====================
+Save as server.js and run with:  
+  npm init -y
+  npm install express cors dotenv
+  # Optional (if you want OpenAI replies): npm install openai
+  # Create .env with: OPENAI_API_KEY=sk-...  
+  node server.js
+
+This file serves /api/chat used by index.html above.
+================================================================= -->
+<script type="text/plain" data-filename="server.js">
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+// Optional OpenAI: uncomment if using OpenAI
+// import OpenAI from 'openai';
+
+dotenv.config();
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+// Optional OpenAI client
+// const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+app.post('/api/chat', async (req, res) => {
+  try{
+    const { message = '', sessionId = '' } = req.body || {};
+
+    // ---- Simple rules / FAQ examples (replace with your logic) ----
+    const lower = message.toLowerCase();
+    if(lower.includes('shipping')){
+      return res.json({ reply: 'We ship Pan-India. Standard delivery takes 3–5 business days. Express options are available at checkout.' });
+    }
+    if(lower.includes('warranty')){
+      return res.json({ reply: 'Most components come with a 7-day replacement warranty for manufacturing defects. Check the product page for exact details.' });
+    }
+    if(lower.includes('order status') || lower.includes('track')){
+      return res.json({ reply: 'You can track your order from the My Orders page using your order ID. If you share your order ID, I can look it up.' });
+    }
+
+    // ---- OPTIONAL: Use OpenAI for fallback answers ----
+    /*
+    if(process.env.OPENAI_API_KEY){
+      const completion = await openai.chat.completions.create({
+        model: 'gpt-4o-mini',
+        messages: [
+          { role: 'system', content: 'You are Astra\'s helpful e-commerce assistant for electronic components. Be concise, friendly, and ask one follow-up question.' },
+          { role: 'user', content: message }
+        ]
+      });
+      const reply = completion.choices?.[0]?.message?.content?.trim() || 'I\'m here to help!';
+      return res.json({ reply });
+    }
+    */
+
+    // Fallback echo (works without any API keys)
+    return res.json({ reply: `You said: ${message}` });
+  }catch(err){
+    console.error(err);
+    return res.status(500).json({ reply: 'Server error. Please try again later.' });
+  }
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Astra chatbot API running on http://localhost:${PORT}`));
+</script>
+
+<!-- ===================== .env (optional) =====================
+OPENAI_API_KEY=sk-yourkey
+-->
