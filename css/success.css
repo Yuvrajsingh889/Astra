@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  body {
+    background-color: #0d0d0d;
+    color: #f0f0f0;
+    padding: 20px;
+    line-height: 1.6;
+  }
+
+  .main-header {
+    background-color: #121212;
+    padding: 20px 30px;
+    border-bottom: 1px solid #222;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .main-header h1 {
+    font-size: 2rem;
+    color: #00ffff;
+  }
+
+  .main-header nav a {
+    color: #00ffff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+
+  .main-header nav a:hover {
+    color: #ff00ff;
+  }
+
+  .success-container {
+    margin-top: 30px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+  }
+
+  .success-container h2 {
+    color: #00ffff;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  .order-details p {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    color: #ccc;
+  }
+
+  .order-details p strong {
+    color: #0ff;
+  }
+
+  .order-items {
+    margin-top: 20px;
+  }
+
+  .order-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px;
+    border-bottom: 1px solid #333;
+  }
+
+  .order-item img {
+    height: 80px;
+    width: 80px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .order-item h3 {
+    font-size: 1.2rem;
+    color: #0ff;
+    margin-bottom: 5px;
+  }
+
+  .order-item p {
+    color: #ccc;
+    font-size: 1rem;
+  }
+
+  .total {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    color: #0ff;
+  }
+
+  .total strong {
+    color: #00ffff;
+  }
+
+  @media (max-width: 600px) {
+    .main-header h1 {
+      font-size: 1.5rem;
+    }
+
+    .success-container {
+      padding: 15px;
+    }
+
+    .order-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .order-item img {
+      width: 100%;
+      height: auto;
+    }
+
+    .total {
+      font-size: 1.2rem;
+    }
+  }

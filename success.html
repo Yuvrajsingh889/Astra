@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Success - ASTRA</title>
+  <link rel="stylesheet" href="css/success.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <header class="main-header">
+    <h1>Order Confirmation</h1>
+    <nav>
+      <a href="index.html">Back to Shop</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="success-container">
+      <h2>Thank You for Your Order!</h2>
+      <div class="order-details">
+        <p><strong>Order Status:</strong> Payment Successful</p>
+        <p><strong>Transaction ID:</strong> <span id="transaction-id">N/A</span></p>
+      </div>
+      <div class="order-items" id="order-items"></div>
+      <p class="total"><strong>Total:</strong> ₹<span id="order-total">0.00</span></p>
+    </div>
+  </main>
+
+  <script>
+    // Retrieve cart and total from localStorage
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const finalTotal = localStorage.getItem("finalTotal") || "0.00";
+    const orderItemsContainer = document.getElementById("order-items");
+    const orderTotalSpan = document.getElementById("order-total");
+    const transactionIdSpan = document.getElementById("transaction-id");
+
+    // Get transaction ID from URL query parameters (set by PayU)
+    const urlParams = new URLSearchParams(window.location.search);
+    const txnid = urlParams.get("txnid") || "N/A";
+
+    // Group cart items by ID
+    const groupedCart = [];
+    cart.forEach(product => {
+      if (!product || typeof product !== 'object') {
+        console.warn("Invalid product, skipping:", product);
+        return;
+      }
+      const existing = groupedCart.find(p => p.id === product.id);
+      if (existing) {
+        existing.quantity += product.quantity || 1;
+      } else {
+        groupedCart.push({
+          id: product.id || `temp-id-${Date.now()}`,
+          name: product.name || "Unknown Product",
+          price: product.price || 0,
+          image: product.image || "https://via.placeholder.com/100",
+          quantity: product.quantity || 1
+        });
+      }
+    });
+
+    // Render order items
+    orderItemsContainer.innerHTML = groupedCart.length === 0
+      ? "<p>No items found in order.</p>"
+      : groupedCart.map(item => `
+        <div class="order-item">
+          <img src="${item.image}" alt="${item.name}" />
+          <div>
+            <h3>${item.name}</h3>
+            <p>Price: ₹${(parseFloat(item.price) || 0).toFixed(2)}</p>
+            <p>Quantity: ${item.quantity}</p>
+            <p>Subtotal: ₹${((parseFloat(item.price) || 0) * item.quantity).toFixed(2)}</p>
+          </div>
+        </div>
+      `).join("");
+
+    // Display total and transaction ID
+    orderTotalSpan.textContent = finalTotal;
+    transactionIdSpan.textContent = txnid;
+
+    // Clear cart and total from localStorage after displaying
+    localStorage.removeItem("cart");
+    localStorage.removeItem("finalTotal");
+  </script>
+</body>
+</html>
