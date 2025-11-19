@@ -53,6 +53,3 @@ app.post('/api/chat', async (req, res) => {
     return res.status(500).json({ reply: 'Server error. Please try again later.' });
   }
 });
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Astra chatbot API running on http://localhost:${PORT}`));
