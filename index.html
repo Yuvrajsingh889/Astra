@@ -192,7 +192,7 @@
         const text = input.value.trim(); if(!text) return;
         bubble('user', text); input.value = ''; setTyping(true);
         try{
-          const r = await fetch('/api/chat', {
+          const r = await fetch('http://localhost:3000/api/chat', {
             method: 'POST', headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ sessionId, message: text, source: 'web' })
           });

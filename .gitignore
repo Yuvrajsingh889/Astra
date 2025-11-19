@@ -1,0 +1,10 @@
+# CRITICAL: API Keys and Secrets
+.env
+
+# Node Dependencies (very large folder)
+node_modules/
+package-lock.json
+
+# Build/Dist directories (Future proofing)
+/dist
+/build
